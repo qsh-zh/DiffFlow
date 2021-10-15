@@ -1,0 +1,10 @@
+#conda:
+  #env: base
+
+system:
+  envs:
+    JAM_RANDOM_SEED: 3
+    JAM_DEBUG: true
+    JAM_PROJ_PATH: TODO
+    WANDB_API_KEY: TODO
+    HYDRA_FULL_ERROR: 1

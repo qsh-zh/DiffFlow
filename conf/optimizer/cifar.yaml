@@ -1,0 +1,5 @@
+defaults:
+  - basic
+
+drift: 2e-4
+score: 2e-4

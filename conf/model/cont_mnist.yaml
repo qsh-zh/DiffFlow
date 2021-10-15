@@ -1,0 +1,10 @@
+defaults:
+  - mnist
+
+N_iter: [3000, 5000, 8000]
+N_values: [5, 10, 20, 30]
+
+time_fn:
+  num_steps: 5
+
+loss_fn: modules.sde_loss.cont_loss_fn_wrapper

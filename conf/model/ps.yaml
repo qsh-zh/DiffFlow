@@ -1,0 +1,31 @@
+name: sde
+quick: true
+
+time_fn:
+  _target_: utils.scalars.ExpTimer
+  num_steps: 30
+  t_start: 0.001
+  t_end: 0.05
+  exp: 0.9
+
+cond_fn: ${model.time_fn}
+
+diff_fn:
+  _target_: utils.scalars.ExpTimer
+  num_steps: ${model.time_fn.num_steps}
+  t_start: 0.2
+  t_end: ${model.diff_fn.t_start}
+
+d_in:
+  - 2
+score:
+  _target_: networks.fouriermlp.FourierMLP
+  data_shape: ${model.d_in}
+  num_layers: 3
+  channels: 128
+
+drift: ${model.score}
+
+
+loss_fn: modules.sde_loss.loss_fn_wrapper
+trainer_register: modules.sde_ps_fns.points_trainer_register

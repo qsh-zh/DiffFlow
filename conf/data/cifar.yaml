@@ -1,0 +1,12 @@
+defaults:
+  - base_img
+
+dataloader:
+  batch_size: 100
+
+dataset: CIFAR10
+image_size: 32
+channel: 3
+
+train_size:
+val_size: 1000

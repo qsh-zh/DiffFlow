@@ -1,0 +1,45 @@
+name: sde
+quick: true
+enable_fid: true
+
+time_fn:
+  _target_: utils.scalars.ExpTimer
+  num_steps: 30
+  t_start: 0.0001
+  t_end: 0.1
+
+cond_fn: ${model.time_fn}
+
+diff_fn:
+  _target_: utils.scalars.ExpTimer
+  num_steps: ${model.time_fn.num_steps}
+  t_start: 1.0
+  t_end: ${model.diff_fn.t_start}
+
+d_in:
+  - ${data.channel}
+  - ${data.image_size}
+  - ${data.image_size}
+
+drift:
+  _target_: networks.unet.Unet
+  dim: 128
+  dim_mults:
+    - 1
+    - 2
+    - 4
+    - 8
+  in_channel: ${data.channel}
+
+score:
+  _target_: networks.unet.Unet
+  dim: 64
+  dim_mults:
+    - 1
+    - 2
+    - 4
+    - 8
+  in_channel: ${data.channel}
+
+loss_fn: modules.sde_loss.loss_fn_wrapper
+trainer_register: modules.sde_img_fns.img_trainer_register

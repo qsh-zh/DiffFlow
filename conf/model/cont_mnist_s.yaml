@@ -1,0 +1,21 @@
+defaults:
+  - mnist
+
+N_iter: [6000, 15000, 25000]
+N_values: [5, 10, 20, 30]
+
+time_fn:
+  _target_: utils.scalars.STimer
+  num_steps: 5
+  t_start: 0.001
+  t_end: 0.05
+
+cond_fn: ${model.time_fn}
+
+diff_fn:
+  _target_: utils.scalars.ExpTimer
+  num_steps: ${model.time_fn.num_steps}
+  t_start: 1.0
+  t_end: ${model.diff_fn.t_start}
+
+loss_fn: modules.sde_loss.cont_loss_fn_wrapper

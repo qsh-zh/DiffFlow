@@ -1,0 +1,21 @@
+is_dist: false
+rank: 0
+gpu: 0
+world_size:
+
+resume: false
+ckpt:
+ckpt_dir:
+epochs: ??
+clip_grad: 1.0
+enable_ema: true
+use_amp: true
+ema:
+  _target_: jamtorch.io.EMA
+  beta: 0.999
+  num_warm: 10
+  num_every: 1
+  forget_resume: false
+
+eval_epoch: 1
+eval_iter: -1

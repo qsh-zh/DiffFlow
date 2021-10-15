@@ -1,0 +1,15 @@
+defaults:
+  # - hydra/launcher: joblib
+  - data: ps
+  - model: ${data}
+  - trainer: ${data}
+  - optimizer: ${data}
+  - wandb: base
+
+
+is_dist: ${trainer.is_dist}
+cuda: true
+
+
+log: false
+name: unet

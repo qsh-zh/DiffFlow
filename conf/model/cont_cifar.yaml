@@ -1,0 +1,52 @@
+name: sde
+quick: true
+enable_fid: true
+
+N_iter: [5000, 15000, 20000, 25000, 30000]
+N_values: [5, 10, 20, 30, 50, 75]
+
+time_fn:
+  _target_: utils.scalars.STimer
+  num_steps: 5
+  t_start: 0.001
+  t_end: 0.05
+
+cond_fn: ${model.time_fn}
+
+diff_fn:
+  _target_: utils.scalars.ExpTimer
+  num_steps: ${model.time_fn.num_steps}
+  t_start: 1.0
+  t_end: ${model.diff_fn.t_start}
+
+d_in:
+  - ${data.channel}
+  - ${data.image_size}
+  - ${data.image_size}
+
+drift:
+  _target_: networks.official_unet.Model
+  in_channels: ${data.channel}
+  out_ch: 3
+  ch: 128
+  ch_mult: [1, 2, 2, 2]
+  num_res_blocks: 2
+  attn_resolutions: [16, ]
+  dropout: 0.1
+  resamp_with_conv: true
+  resolution: 32
+
+score:
+  _target_: networks.official_unet.Model
+  in_channels: ${data.channel}
+  out_ch: 3
+  ch: 64
+  ch_mult: [1, 2, 2, 2]
+  num_res_blocks: 2
+  attn_resolutions: [16, ]
+  dropout: 0.1
+  resamp_with_conv: true
+  resolution: 32
+
+loss_fn: modules.sde_loss.cont_loss_fn_wrapper
+trainer_register: modules.sde_img_fns.img_trainer_register

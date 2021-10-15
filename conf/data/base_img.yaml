@@ -1,0 +1,29 @@
+dataloader:
+  _target_: jamtorch.ddp.ddp_utils.ddp_loaders
+  batch_size: ??
+  pin_memory: false
+  num_workers: 0
+
+dataset: ??
+image_size: ??
+channel: ??
+path:
+
+train_size:
+val_size: ??
+eval_n_samples: 8
+
+random_flip: true
+logit_transform: false
+uniform_dequantization: false
+gaussian_dequantization: false
+rescaled: true
+image_mean:
+image_std:
+
+preprocess_fn:
+  _target_: modules.sde_loss.img_preprocess
+
+fid:
+  num_samples: 1000
+  batch_size: 500

@@ -1,0 +1,6 @@
+defaults:
+  - basic
+
+drift: 1e-2
+score: 1e-2
+gamma: 0.95

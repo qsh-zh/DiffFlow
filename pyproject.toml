@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "diffflow"
+version = "0.0.1"
+description = ""
+authors = ["qzhang419@gatech.edu"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.10"
+jammy = "0.0.2"
+tqdm = "^4.11.0"
+scikit-learn = "^0.24.2"
+scikit-image = "^0.18.0"
+attrs = "^20.3.0"
+torch-fidelity = "^0.3.0"
+
+[tool.poetry.dev-dependencies]
+pylint = "^2.8.3"
+pre-commit = "^2.13.0"
+isort = "^5.8.0"
+black = "^21.5b1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

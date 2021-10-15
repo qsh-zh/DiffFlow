@@ -1,0 +1,20 @@
+defaults:
+  - base
+
+is_dist: true
+rank:
+gpu: 0
+cwd:
+world_size:
+dist:
+  adjust_lr: false
+  master_addr: 'localhost'
+  master_port: '12355'
+  mode: 'nccl'
+  syncBN: false
+  timeout: 
+
+epochs: 100
+eval_epoch: -1
+eval_iter: 150
+ema_master: 

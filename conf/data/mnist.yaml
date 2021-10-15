@@ -1,0 +1,15 @@
+defaults:
+  - base_img
+
+dataloader:
+  batch_size: 64
+  pin_memory: true
+
+dataset: MNIST
+image_size: 32
+channel: 1
+
+train_size:
+val_size: 2000
+
+random_flip: false

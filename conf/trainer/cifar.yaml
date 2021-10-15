@@ -1,0 +1,6 @@
+defaults:
+  - base
+
+epochs: 100
+eval_epoch: -1
+eval_iter: 150

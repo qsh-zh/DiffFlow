@@ -1,0 +1,39 @@
+dataset: "olympic"
+
+train_size: 500000
+val_size: 2000
+
+batch_size: 5000
+
+range: 1.0
+noise: 0.01
+std: 1.0
+
+iscenter: true
+
+density: false
+
+train_data:
+  _target_: datasets.points_dataset.PointsDataSet
+  data_name: ${data.dataset}
+  num_sample: ${data.train_size}
+  noise: ${data.noise}
+  dim_range: ${data.range}
+  iscenter: ${data.iscenter}
+
+
+val_data:
+  _target_: datasets.points_dataset.PointsDataSet
+  data_name: ${data.dataset}
+  num_sample: ${data.val_size}
+  noise: ${data.noise}
+  dim_range: ${data.range}
+  iscenter: ${data.iscenter}
+
+dataloader:
+  _target_: jamtorch.ddp.ddp_utils.ddp_loaders
+  batch_size: ${data.batch_size}
+  pin_memory: true
+
+preprocess_fn:
+  _target_: modules.sde_loss.point_preprocess
